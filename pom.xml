@@ -8,15 +8,15 @@
     <artifactId>Coursework</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <dependencies>
+<dependencies>
 
-        <!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
-        <dependency>
-            <groupId>org.xerial</groupId>
-            <artifactId>sqlite-jdbc</artifactId>
-            <version>3.27.2.1</version>
-        </dependency>
+    <!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
+    <dependency>
+        <groupId>org.xerial</groupId>
+        <artifactId>sqlite-jdbc</artifactId>
+        <version>3.27.2.1</version>
+    </dependency>
 
-    </dependencies>
+</dependencies>
 
 </project>
