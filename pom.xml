@@ -23,8 +23,6 @@
         </plugins>
     </build>
 
-    //KEEP ALL OF THESE DEPENDENCIES!!!!
-
     <dependencies>
 
         <!-- SQLite -->

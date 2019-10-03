@@ -1,6 +1,14 @@
 package Server;
 
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.servlet.ServletContainer;
 import org.sqlite.SQLiteConfig;
+
+
 import java.sql.*;
 import java.util.Scanner;
 
@@ -51,7 +59,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-            openDatabase("things.db");
+            openDatabase("Users.db");
 
             ResourceConfig config = new ResourceConfig();
             config.packages("Controllers");
@@ -69,11 +77,6 @@ public class Main {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-
-
-
-
 
         //Input into data base
 
