@@ -1,19 +1,20 @@
 package Controllers;
 import Server.Main;
+import com.sun.jersey.multipart.FormDataParam;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 
 public class loginData {
+
+    //List all things
+
     @GET
-    @Path("loginData/read/")
+    @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
     public String listItems() {
         System.out.println("loginData/read");
@@ -40,6 +41,7 @@ public class loginData {
 
     }
 
+    //list one thing(s)
 
     @GET
     @Path("get/{id}")
@@ -64,6 +66,76 @@ public class loginData {
             System.out.println("Database error: " + exception.getMessage());
             return "{\"error\": \"Unable to get item, please see server console for more info.\"}";
         }
+    }
+
+    //Insert into database
+
+    @POST
+    @Path("new")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String insertThing(@FormDataParam("userName") String userName, @FormDataParam("password") String password) {
+        try {
+            if (userName == null || password == null) {
+                throw new Exception("One or more form data parameters are missing in the HTTP request.");
+            }
+
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Things (userName, password) VALUES (?, ?)");
+            ps.setString(1, userName);
+            ps.setString(2, password);
+            ps.execute();
+            return "{\"status\": \"OK\"}";
+
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"error\":\"Unable to create new item, please see server console for more information.\"}";
+        }
+    }
+
+    //update database
+
+    @POST
+    @Path("new")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateThing(@FormDataParam("userName") String userName, @FormDataParam("password") String password) {
+        try {
+            if (userName == null || password == null) {
+            throw new Exception("One or more form data parameters are missing in the HTTP request.");
+            }
+            System.out.println("thing/update=" + userName);
+
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE loginData SET userName = ?, password = ? WHERE id = ?");
+            ps.setString(2, userName);
+            ps.setString(3, password);
+            return "{\"error\": \"Unable to update item, please see server console for more information.\"}";
+        } catch (Exception exception){
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"error\": \"Unable to update item, please see server console for more information.\"}";
+        }
+    }
+
+    //delete from database
+
+    @POST
+    @Path("delete")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteThing(@FormDataParam("userName") String userName){
+        try{
+            if (userName == null){
+                throw new Exception("One or more form data parameters are missing in the HTTP request.");
+            }
+            System.out.println("thing/delete userName=" + userName);
+            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM loginData WHERE userName = ?");
+            ps.setString(1, userName);
+            ps.execute();
+            return "{\"status\": \"OK\"}";
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"error\": \"Unable to delete item, please see server console for more information.\"}";
+        }
+
     }
 
 } // end of file
