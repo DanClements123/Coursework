@@ -6,11 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Comp Sci - Coursework" />
         <module name="Coursework" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Coursework" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>
