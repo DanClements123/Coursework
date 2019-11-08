@@ -1,9 +1,7 @@
 package Controllers;
-package Controllers;
 import Server.Main;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -13,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Path("thing/")
 public class Questions {
 
     @GET
@@ -22,7 +21,7 @@ public class Questions {
         System.out.println("thing/list");
         JSONArray list = new JSONArray();
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT questionID, question, correctAnswer, wrongAnswer, wrongAnswer2, wrongAnswer3, topicID");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT questionID, question, correctAnswer, wrongAnswer, wrongAnswer2, wrongAnswer3, topicID from Questions");
             ResultSet results = ps.executeQuery();
             while (results.next()) {
                 JSONObject item = new JSONObject();
@@ -33,6 +32,7 @@ public class Questions {
                 item.put("wrongAnswer2", results.getString(5));
                 item.put("wrongAnswer3", results.getString(6));
                 item.put("topicID", results.getInt(7));
+                list.add(item);
             }
             return list.toString();
         } catch (Exception exception) {
@@ -45,7 +45,7 @@ public class Questions {
     @GET
     @Path("get/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getThing(@PathParam("id") Integer id) {
+    public String getThing(@PathParam("id") Integer id) throws Exception {
         if (id == null) {
             throw new Exception("Thing's 'id' is missing in the HTTP request's URL.");
         }
@@ -56,86 +56,17 @@ public class Questions {
             ps.setInt(1, id);
             ResultSet results = ps.executeQuery();
             if (results.next()) {
-                item.put("questionID", id);
-                item.put("")
+                item.put("id", id);
+                item.put("question", results.getString(1));
             }
             return item.toString();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"error\": \"Unable to get item, please see server console for more info.\"}";
         }
-
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-} // end of file
 
 
 

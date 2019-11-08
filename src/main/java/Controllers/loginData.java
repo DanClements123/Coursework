@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-
+@Path("loginData/")
 public class loginData {
 
     //List all things
@@ -20,13 +20,13 @@ public class loginData {
         System.out.println("loginData/read");
         JSONArray list = new JSONArray();
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT loginId, password, userName FROM loginData");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT loginID, userName, password FROM loginData");
             ResultSet results = ps.executeQuery();
             while (results.next()) {
                 JSONObject item = new JSONObject();
-                item.put("id", results.getInt(1));
-                item.put("name", results.getString(2));
-                item.put("quantity", results.getInt(3));
+                item.put("loginID", results.getInt(1));
+                item.put("userName", results.getString(2));
+                item.put("password", results.getString(3));
                 list.add(item);
             }
             return list.toString();
@@ -53,7 +53,7 @@ public class loginData {
         System.out.println("loginData/get/" + id);
         JSONObject item = new JSONObject();
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT userName, password WHERE loginId = 1000");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT userName, password WHERE loginID = 1 FROM loginData");
             ps.setInt(1, id);
             ResultSet results = ps.executeQuery();
             if (results.next()) {
@@ -80,7 +80,7 @@ public class loginData {
                 throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
 
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO Things (userName, password) VALUES (?, ?)");
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO loginData (userName, password) VALUES (?, ?)");
             ps.setString(1, userName);
             ps.setString(2, password);
             ps.execute();
