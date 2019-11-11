@@ -1,11 +1,10 @@
 package Controllers;
 import Server.Main;
+import com.sun.jersey.multipart.FormDataParam;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -66,7 +65,88 @@ public class Questions {
             return "{\"error\": \"Unable to get item, please see server console for more info.\"}";
         }
     }
+
+
+    @POST
+    @Path("insert")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String insertThing(@FormDataParam("question") String question, @FormDataParam("correctAnswer") String correctAnswer,
+                              @FormDataParam("wrongAnswer") String wrongAnswer, @FormDataParam("wrongAnswer2") String wrongAnswer2, @FormDataParam("wrongAnswer3") String wrongAnswer3) {
+        try {
+            if (question == null || correctAnswer == null || wrongAnswer == null) {
+                throw new Exception("One or more form data parameters are missing in the HTTP request.");
+            }
+
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO loginData (question, correctAnswer, wrongAnswer, wrongAnswer2, wrongAnswer3) VALUES (?, ?, ?, ?, ?)");
+            ps.setString(1, question);
+            ps.setString(2, correctAnswer);
+            ps.setString(3, wrongAnswer);
+            ps.setString(4, wrongAnswer2);
+            ps.setString(5,wrongAnswer3);
+            ps.execute();
+            return "{\"status\": \"OK\"}";
+
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"error\":\"Unable to create new item, please see server console for more information.\"}";
+        }
+    }
+
+    //update database
+
+    @POST
+    @Path("update")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateThing(@FormDataParam("question") String question, @FormDataParam("correctAnswer") String correctAnswer,
+                              @FormDataParam("wrongAnswer") String wrongAnswer, @FormDataParam("wrongAnswer2") String wrongAnswer2, @FormDataParam("wrongAnswer3") String wrongAnswer3) {
+        try {
+            if (question == null || correctAnswer == null || wrongAnswer == null) {
+                throw new Exception("One or more form data parameters are missing in the HTTP request.");
+            }
+            System.out.println("thing/update=" + question);
+
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE Questions SET question = ?, correctAnswer = ?, wrongAnswer = ? WHERE id = ?");
+            ps.setString(2, question);
+            ps.setString(3, correctAnswer);
+            ps.setString(4, wrongAnswer);
+            return "{\"error\": \"Unable to update item, please see server console for more information.\"}";
+        } catch (Exception exception){
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"error\": \"Unable to update item, please see server console for more information.\"}";
+        }
+    }
+
+    //delete from database
+
+    @POST
+    @Path("delete")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteThing(@FormDataParam("question") String question, @FormDataParam("correctAnswer") String correctAnswer,
+                              @FormDataParam("wrongAnswer") String wrongAnswer, @FormDataParam("wrongAnswer2") String wrongAnswer2,
+                              @FormDataParam("wrongAnswer3") String wrongAnswer3){
+        try{
+            if (question == null || correctAnswer == null || wrongAnswer == null){
+                throw new Exception("One or more form data parameters are missing in the HTTP request.");
+            }
+            System.out.println("thing/delete question=" + question);
+            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Questions WHERE question = ?");
+            ps.setString(1, question);
+            ps.setString(2, correctAnswer);
+            ps.setString(3, wrongAnswer);
+            ps.execute();
+            return "{\"status\": \"OK\"}";
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"error\": \"Unable to delete item, please see server console for more information.\"}";
+        }
+
+    }
+
 }
+
 
 
 
