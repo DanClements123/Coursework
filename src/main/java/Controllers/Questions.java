@@ -3,12 +3,11 @@ import Server.Main;
 import com.sun.jersey.multipart.FormDataParam;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 
 @Path("thing/")
 public class Questions {
