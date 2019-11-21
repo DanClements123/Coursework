@@ -4,6 +4,7 @@ import Server.Main;
 import com.sun.jersey.multipart.FormDataParam;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import java.util.UUID;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -25,14 +26,13 @@ import java.sql.ResultSet;
             JSONArray list = new JSONArray();
             //Creates array in order to output results from the database
             try {
-                PreparedStatement ps = Main.db.prepareStatement("SELECT userID, grade FROM loginData");
+                PreparedStatement ps = Main.db.prepareStatement("SELECT userID, grade FROM Results");
                 //This statement selects which cells to pick from in order to output
                 ResultSet results = ps.executeQuery();
                 while (results.next()) {
                     JSONObject item = new JSONObject();
-                    item.put("loginID", results.getInt(1));
-                    item.put("userName", results.getString(2));
-                    item.put("password", results.getString(3));
+                    item.put("userID", results.getInt(1));
+                    item.put("Grade", results.getString(3));
                     list.add(item);
                     //Adds items to the JSONArray 'list'
                 }
@@ -49,64 +49,8 @@ import java.sql.ResultSet;
 
         }
 
-        //list one thing(s)
-
-        @GET
-        //Retrieves data from the database
-        @Path("get/{id}")
-        //Path variable which allows the data to be outputted using git bash in JSON format
-        @Produces(MediaType.APPLICATION_JSON)
-        public String retrieveItems(@PathParam("id") Integer id) throws Exception {
-            if (id == null) {
-                throw new Exception("Thing's 'id' is missing in the HTTP request's URL.");
-                //If there is an error in the HTTP request it is outputted here, promoting the user to re-enter the data
-            }
-            System.out.println("loginData/get/" + id);
-            JSONObject item = new JSONObject();
-            //Creates JSONArray to be used as response from the git bash test results
-            try {
-                PreparedStatement ps = Main.db.prepareStatement("SELECT userName, password FROM loginData WHERE id = ?");
-                ps.setInt(1, id);
-                ResultSet results = ps.executeQuery();
-                if (results.next()) {
-                    item.put("loginID", id);
-                    item.put("userName", results.getString(1));
-                    item.put("password", results.getInt(2));
-                    //Outputs data into the git bash response, allowing the response to be tested against the sample data
-                }
-                return item.toString();
-            } catch (Exception exception) {
-                System.out.println("Database error: " + exception.getMessage());
-                return "{\"error\": \"Unable to get item, please see server console for more info.\"}";
-                //outputs any errors which occur from database information or the users errors
-            }
-        }
-
         //Insert into database
 
-        @POST
-        @Path("insert")
-        //The @POST allows the information to be inputted into the database and the @PATH signifies the path which the user must specify when testing the JSON response
-        @Consumes(MediaType.MULTIPART_FORM_DATA)
-        @Produces(MediaType.APPLICATION_JSON)
-        public String insertThing(@FormDataParam("userName") String userName, @FormDataParam("password") String password) { // Specifies the users data which is going to be inputting into the database
-            try {
-                if (userName == null || password == null) {
-                    throw new Exception("One or more form data parameters are missing in the HTTP request."); //throws exception into the console if the users database
-                    // - inputs were incorrect or did not meet the parameters of the database
-                }
-
-                PreparedStatement ps = Main.db.prepareStatement("INSERT INTO loginData (userName, password) VALUES (?, ?)"); //Checks data against the data stored into the database, allowing the user access to the account if correct
-                ps.setString(1, userName);
-                ps.setString(2, password);
-                ps.execute();
-                return "{\"status\": \"OK\"}";
-
-            } catch (Exception exception) {
-                System.out.println("Database error: " + exception.getMessage());
-                return "{\"error\":\"Unable to create new item, please see server console for more information.\"}";
-            }
-        }
 
         //update database
 
@@ -114,43 +58,20 @@ import java.sql.ResultSet;
         @Path("new")
         @Consumes(MediaType.MULTIPART_FORM_DATA)
         @Produces(MediaType.APPLICATION_JSON)
-        public String updateThing(@FormDataParam("userName") String userName, @FormDataParam("password") String password) {
+        public String updateThing(@FormDataParam("Grade") String Grade, @FormDataParam("gradeID") int gradeID) {
             try {
-                if (userName == null || password == null) {
+                if (Grade == null || gradeID == 0) {
                     throw new Exception("One or more form data parameters are missing in the HTTP request.");
                 }
-                System.out.println("thing/update=" + userName);
+                System.out.println("thing/update=" + Grade + gradeID);
 
-                PreparedStatement ps = Main.db.prepareStatement("UPDATE loginData SET userName = ?, password = ? WHERE id = ?");
-                ps.setString(2, userName);
-                ps.setString(3, password);
+                PreparedStatement ps = Main.db.prepareStatement("UPDATE Grade, gradeID SET Grade = ? gradeID = ? WHERE id = ?");
+                ps.setInt(2, gradeID);
+                ps.setString(3, Grade);
                 return "{\"error\": \"Unable to update item, please see server console for more information.\"}";
-            } catch (Exception exception){
-                System.out.println("Database error: " + exception.getMessage());
-                return "{\"error\": \"Unable to update item, please see server console for more information.\"}";
-            }
-        }
-
-        //delete from database
-
-        @POST
-        @Path("delete")
-        @Consumes(MediaType.MULTIPART_FORM_DATA)
-        @Produces(MediaType.APPLICATION_JSON)
-        public String deleteThing(@FormDataParam("userName") String userName){
-            try{
-                if (userName == null){
-                    throw new Exception("One or more form data parameters are missing in the HTTP request.");
-                }
-                System.out.println("thing/delete userName=" + userName);
-                PreparedStatement ps = Main.db.prepareStatement("DELETE FROM loginData WHERE userName = ?");
-                ps.setString(1, userName);
-                ps.execute();
-                return "{\"status\": \"OK\"}";
             } catch (Exception exception) {
                 System.out.println("Database error: " + exception.getMessage());
-                return "{\"error\": \"Unable to delete item, please see server console for more information.\"}";
+                return "{\"error\": \"Unable to update item, please see server console for more information.\"}";
             }
-
         }
-}
+    }

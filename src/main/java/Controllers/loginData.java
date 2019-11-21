@@ -64,13 +64,12 @@ public class loginData {
         JSONObject item = new JSONObject();
         //Creates JSONArray to be used as response from the git bash test results
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT userName, password FROM loginData WHERE id = ?");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT userName, FROM loginData WHERE id = ?");
             ps.setInt(1, id);
             ResultSet results = ps.executeQuery();
             if (results.next()) {
                 item.put("loginID", id);
                 item.put("userName", results.getString(1));
-                item.put("password", results.getInt(2));
                 //Outputs data into the git bash response, allowing the response to be tested against the sample data
             }
             return item.toString();
@@ -95,7 +94,8 @@ public class loginData {
                 // - inputs were incorrect or did not meet the parameters of the database
             }
 
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO loginData (userName, password) VALUES (?, ?)"); //Checks data against the data stored into the database, allowing the user access to the account if correct
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO loginData (userName, password) " +
+                    "VALUES (?, ?)"); //Checks data against the data stored into the database, allowing the user access to the account if correct
             ps.setString(1, userName);
             ps.setString(2, password);
             ps.execute();
