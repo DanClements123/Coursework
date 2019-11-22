@@ -27,7 +27,6 @@ public class Main {
             config.enforceForeignKeys(true);
             db = DriverManager.getConnection("jdbc:sqlite:resources/" + dbFile, config.toProperties());
             System.out.println("Database connection successfully established");
-
         } catch (Exception exception) {
 
             System.out.println("Database connection error: " + exception.getMessage());
@@ -79,6 +78,11 @@ public class Main {
     }
 }
 
+//curl test lines:
+//curl -s localhost:8081/thing/get/
+//curl -s localhost:8081/apipostpath -F id=1 -F name=Steve
+//curl -s localhost:8081/apipostpath -F message="Hello there everyone!"
+//curl -s localhost:8081/apipath --cookie token=abcdef123456
 
 
 

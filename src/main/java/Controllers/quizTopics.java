@@ -1,11 +1,8 @@
 package Controllers;
-
 import Server.Main;
 import com.sun.jersey.multipart.FormDataParam;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import java.util.UUID;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;

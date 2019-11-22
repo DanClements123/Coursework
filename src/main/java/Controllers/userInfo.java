@@ -1,11 +1,10 @@
 package Controllers;
-
 import Server.Main;
-import com.sun.jersey.multipart.FormDataParam;
+
+
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import java.util.UUID;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
@@ -25,7 +24,7 @@ public class userInfo {
             JSONArray list = new JSONArray();
             //Creates array in order to output results from the database
             try {
-                PreparedStatement ps = Main.db.prepareStatement("SELECT userName, firstName, secondName FROM userInfo");
+                PreparedStatement ps = Main.db.prepareStatement("SELECT userName, firstName, lastName FROM userInfo");
                 //This statement selects which cells to pick from in order to output
                 ResultSet results = ps.executeQuery();
                 while (results.next()) {
