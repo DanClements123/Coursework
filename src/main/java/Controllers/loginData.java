@@ -15,7 +15,7 @@ public class loginData {
 
     //List all things
 
-    @GET
+    @GET //fully tested
     //retrieves data from the database
     @Path("list")
     //Path for testing the APIs in git bash
@@ -56,16 +56,16 @@ public class loginData {
     @Path("get/{id}")
     //Path variable which allows the data to be outputted using git bash in JSON format
     @Produces(MediaType.APPLICATION_JSON)
-    public String retrieveItems(@PathParam("loginID") Integer loginID) throws Exception {
-        if (loginID == null) {
+    public String retrieveItems(@PathParam("id") Integer id) throws Exception {
+        if (id == null) {
             throw new Exception("Thing's 'id' is missing in the HTTP request's URL.");
             //If there is an error in the HTTP request it is outputted here, promoting the user to re-enter the data
         }
-        System.out.println("loginData/get/" + loginID);
+        System.out.println("loginData/get/" + id);
         JSONObject item = new JSONObject();
         //Creates JSONArray to be used as response from the git bash test results
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT userName FROM loginData WHERE id = ?");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT userName FROM loginData WHERE loginID = ?");
             ps.setInt(1, id);
             ResultSet results = ps.executeQuery();
             if (results.next()) {
@@ -95,8 +95,8 @@ public class loginData {
                 // - inputs were incorrect or did not meet the parameters of the database
             }
 
-            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO loginData (userName, password) " +
-                    "VALUES (?, ?)"); //Checks data against the data stored into the database, allowing the user access to the account if correct
+            PreparedStatement ps = Main.db.prepareStatement("INSERT INTO loginData (userName, password) VALUES (?, ?)");
+            //Checks data against the data stored into the database, allowing the user access to the account if correct
             ps.setString(1, userName);
             ps.setString(2, password);
             ps.execute();
@@ -111,20 +111,21 @@ public class loginData {
     //update database
 
     @POST
-    @Path("new")
+    @Path("update")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String updateThing(@FormDataParam("userName") String userName, @FormDataParam("password") String password) {
+    public String updateThing(@FormDataParam("userName") String userName, @FormDataParam("password") String password, @FormDataParam("loginID") Integer loginID) {
         try {
             if (userName == null || password == null) {
             throw new Exception("One or more form data parameters are missing in the HTTP request.");
             }
-            System.out.println("thing/update=" + userName);
-
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE loginData SET userName = ?, password = ? WHERE id = ?");
-            ps.setString(2, userName);
-            ps.setString(3, password);
-            return "{\"error\": \"Unable to update item, please see server console for more information.\"}";
+            System.out.println("thing/update=" + loginID);
+            PreparedStatement ps = Main.db.prepareStatement("UPDATE loginData SET userName = ?, password = ? WHERE loginID = ?");
+            ps.setString(1, userName);
+            ps.setString(2, password);
+            ps.setInt(3, loginID);
+            ps.execute();
+            return "{\"Status\": \"OK\"}";
         } catch (Exception exception){
             System.out.println("Database error: " + exception.getMessage());
             return "{\"error\": \"Unable to update item, please see server console for more information.\"}";
