@@ -37,5 +37,11 @@
         <property name="enable_load_extension" value="true" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="Users [2]" uuid="8f2c892a-6293-419a-8d23-45a0f2417936">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Daniel\IdeaProjects\Coursework\resources\Users.db</jdbc-url>
+    </data-source>
   </component>
 </project>

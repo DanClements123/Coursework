@@ -2,7 +2,7 @@ function pageLoad() {
 
     let now = new Date();
 
-    let myHTML = '<div style="text-align:center;">'
+    let testHTML = '<div style="text-align:center;">'
         + '<h1>Welcome to my API powered website!</h1>'
         + '<img src="/client/img/quiz-logo"  alt="Logo"/>'
         + '<div style="font-style: italic;">'
@@ -10,6 +10,6 @@ function pageLoad() {
         + '</div>'
         + '</div>';
 
-    document.getElementById("testDiv").innerHTML = myHTML;
+    document.getElementById("testDiv").innerHTML = testHTML;
 
 }

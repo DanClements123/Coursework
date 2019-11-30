@@ -2,16 +2,52 @@
 <html>
 
 <head>
-    <title>Demo page</title>
+    <title>QuizHub Home Page</title>
     <link rel="stylesheet" type="text/css" href="/Client/css/styles.css">
     <script src="/Client/js/index.js"></script>
     <link rel="shortcut icon" href="/Client/favicon.ico" type="image/x-icon">
 </head>
 
-<body onload="pageLoad()">
+<body onload="pageLoad()" style="background-color:lightgrey">
 <div id="content">
     <div id="testDiv"></div>
 </div>
+<h1 style="font-family:'New Times Roman';font-size:50px; color:Black"; align="center";>QuizHub</h1>
+<h2 style="font-family:'New Times Roman';font-size:32px; color:Black"; align="left";>Welcome to a new quiz revision site!</h2>
+<div class="box red"></div>
+<form method="get" action="/page2">
+    <button onclick="window.location.href = 'http://localhost:8081/client/index.html';">Play a Quiz!</button>
+    <button onclick="window.location.href = 'http://localhost:8081/client/index.html';">New Quizzes</button>
+    <button onclick="window.location.href = 'http://localhost:8081/client/index.html';">Popular Quizzes</button>
+    <button onclick="window.location.href = 'http://localhost:8081/client/index.html';">Your Quizzes</button>
+    <button onclick="window.location.href = 'http://localhost:8081/client/index.html';">Play a Quiz!</button>
+    <button onclick="window.location.href = 'http://localhost:8081/client/index.html';">Login</button>
+    <button onclick="window.location.href = 'http://localhost:8081/client/index.html';">Your Account</button>
+</form>
+<!--
+<form>
+    <fieldset>
+        <legend>What would you like to do?</legend>
+        <p>
+            <label>Quizzes</label>
+            <select id = "myList">
+                <option value = "1"><a style="font-family:'New Times Roman';font-size:15px"; href="https://www.google.com/">Login</a></option>
+                <option value = "2">Newly Created</option>
+                <option value = "3">Your quizzes</option>
+                <option value = "4">Computer Science</option>
+                <option value = "5">Maths</option>
+                <option value = "6">English</option>
+                <option value = "7">History</option>
+                <option value = "8">Politics</option>
+                <option value = "9">Science</option>
+
+            </select>
+        </p>
+    </fieldset>
+
+</form>
+-->
+
 </body>
 
 </html>
