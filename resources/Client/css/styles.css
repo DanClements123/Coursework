@@ -1,5 +1,5 @@
 body {
-     background-color: lightgrey;
+     background-color: darkgrey;
      margin: 0;
      font-family: 'New Times Roman', serif;
  }
@@ -22,12 +22,3 @@ h1 {
     height:100px;
 }
 
-.red{
-    background:#f00;
-}
-.green{
-    background:#0f0;
-}
-.blue{
-    background:#00f;
-}
