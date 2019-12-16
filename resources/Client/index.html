@@ -1,30 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 
 <head>
+    <meta charset="UTF-8">
     <title>QuizHub Home Page</title>
     <link rel="stylesheet" type="text/css" href="/Client/css/styles.css">
     <script src="/Client/js/index.js"></script>
     <link rel="shortcut icon" href="/Client/favicon.ico" type="image/x-icon">
 </head>
-
-
+<body onload="pageLoad()">
 <div id="content">
     <div id="testDiv"></div>
 </div>
+</body>
+
 <h1 style="font-family:'New Times Roman',serif;font-size:50px; color:Black" align="center";>QuizHub</h1>
 <h2 style="font-family:'New Times Roman',serif;font-size:32px; color:Black" align="left";>Welcome to a new quiz revision site!</h2>
 
 <form method="get" action="/page2">
     <input type="button" onclick="location.href='http://localhost:8081/client/playQuiz.html';" value="Play a Quiz" />
-    <input type="button" onclick="location.href='http://google.com';" value="temp button" />
-    <input type="button" onclick="location.href='http://google.com';" value="temp button" />
-    <input type="button" onclick="location.href='http://google.com';" value="temp button" />
-    <input type="button" onclick="location.href='http://google.com';" value="temp button" />
-    <input type="button" onclick="location.href='http://google.com';" value="temp button" />
-    <input type="button" onclick="location.href='http://google.com';" value="temp button" />
+    <input type="button" onclick="location.href='http://localhost:8081/client/playQuiz.html';" value="temp button" />
+    <input type="button" onclick="location.href='http://localhost:8081/client/playQuiz.html';" value="temp button" />
+    <input type="button" onclick="location.href='http://localhost:8081/client/playQuiz.html';" value="temp button" />
+    <input type="button" onclick="location.href='http://localhost:8081/client/playQuiz.html';" value="temp button" />
+    <input type="button" onclick="location.href='http://localhost:8081/client/playQuiz.html';" value="temp button" />
+    <input type="button" onclick="location.href='http://localhost:8081/client/playQuiz.html';" value="temp button" />
 </form>
 <secton id="bottomColour"></secton>
+
+
 <!--
 <form>
     <fieldset>
@@ -45,7 +50,18 @@
             </select>
         </p>
     </fieldset>
-
+body{
+    background: grey;
+    margin: 0;
+}
+#bottomColour {
+     background-color: orange;
+     height: 50%;
+     position: fixed;
+     top: 65%;
+     left: 0;
+     width: 100%;
+ }
 </form>
 -->
 

@@ -1,8 +1,18 @@
-@charset "UTF-8";
-body {
-    background-color: grey;
+h1 {
+    margin-top:0;
+}
+
+#content {
+    background-color: white;
+    width: 1000px;
+    margin: 0 auto;
+    min-height: 600px;
+    padding: 32px;
 }
 
 
-
+.box{
+    width:100px;
+    height:100px;
+}
 
