@@ -88,7 +88,12 @@ public class loginData {
     //The @POST allows the information to be inputted into the database and the @PATH signifies the path which the user must specify when testing the JSON response
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String insertThing(@FormDataParam("userName") String userName, @FormDataParam("password") String password) { // Specifies the users data which is going to be inputting into the database
+    public String insertThing(@FormDataParam("userName") String userName, @FormDataParam("password") String password, @CookieParam("token") String Token) {
+
+        if (!User.validToken(Token)) {
+            return "{\"error\": \"You don't appear to be logged in.\"}";
+        }
+                // Specifies the users data which is going to be inputting into the database
         try {
             if (userName == null || password == null) {
                 throw new Exception("One or more form data parameters are missing in the HTTP request."); //throws exception into the console if the users database
@@ -114,7 +119,11 @@ public class loginData {
     @Path("update")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String updateThing(@FormDataParam("userName") String userName, @FormDataParam("password") String password, @FormDataParam("loginID") Integer loginID) {
+    public String updateThing(@FormDataParam("userName") String userName, @FormDataParam("password") String password, @FormDataParam("loginID") Integer loginID, @CookieParam("token") String Token) {
+
+        if (!User.validToken(Token)) {
+            return "{\"error\": \"You don't appear to be logged in.\"}";
+        }
         try {
             if (userName == null || password == null) {
             throw new Exception("One or more form data parameters are missing in the HTTP request.");
@@ -161,7 +170,11 @@ public class loginData {
     @Path("login")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public String loginUser(@FormDataParam("userName") String userName, @FormDataParam("password") String password) {
+    public String loginUser(@FormDataParam("userName") String userName, @FormDataParam("password") String password, @CookieParam("token") String Token) {
+
+        if (!User.validToken(Token)) {
+            return "{\"error\": \"You don't appear to be logged in.\"}";
+        }
 
         try {
 
@@ -176,6 +189,7 @@ public class loginData {
                     ps2.setString(1, token);
                     ps2.setString(2, userName);
                     ps2.executeUpdate();
+
                     return "{\"token\": \""+ token + "\"}";
                 } else {
                     return "{\"error\": \"Incorrect password!\"}";

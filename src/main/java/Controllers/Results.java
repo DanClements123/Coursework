@@ -55,7 +55,11 @@ import java.sql.ResultSet;
         @Path("new")
         @Consumes(MediaType.MULTIPART_FORM_DATA)
         @Produces(MediaType.APPLICATION_JSON)
-        public String updateThing(@FormDataParam("Grade") String Grade, @FormDataParam("gradeID") int gradeID) {
+        public String updateThing(@FormDataParam("Grade") String Grade, @FormDataParam("gradeID") int gradeID, @CookieParam("token") String Token) {
+
+            if (!User.validToken(Token)) {
+                return "{\"error\": \"You don't appear to be logged in.\"}";
+            }
             try {
                 if (Grade == null || gradeID == 0) {
                     throw new Exception("One or more form data parameters are missing in the HTTP request.");
