@@ -4,7 +4,7 @@ h1 {
 
 body{
     background: grey;
-    margin: 0;
+    margin: 20px;
 }
 #bottomColour {
     background-color: orange;
@@ -13,5 +13,16 @@ body{
     top: 65%;
     left: 0;
     width: 100%;
+}
+
+#button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }
 
