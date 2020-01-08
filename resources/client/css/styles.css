@@ -15,14 +15,54 @@ body{
     width: 100%;
 }
 
-#button {
-    background-color: #4CAF50; /* Green */
+#buttonPosition {
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 15px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    margin-left:35%;
 }
+
+#buttonPosition1 {
+
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left:0%;
+}
+
+#buttonPosition2 {
+
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left:0%;
+}
+
+#buttonPosition3 {
+
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left:0%;
+}
+
+
+
+
 
