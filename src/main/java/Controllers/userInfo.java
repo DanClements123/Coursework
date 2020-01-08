@@ -88,7 +88,11 @@ public class userInfo {
         @Path("new")
         @Consumes(MediaType.MULTIPART_FORM_DATA)
         @Produces(MediaType.APPLICATION_JSON)
-        public String updateThing(@FormDataParam("userName") String userName, @FormDataParam("firstName") String firstName, @FormDataParam("lastName") String lastName) {
+        public String updateThing(@FormDataParam("userName") String userName, @FormDataParam("firstName") String firstName, @FormDataParam("lastName") String lastName, @CookieParam("token") String Token) {
+
+            if (!User.validToken(Token)) {
+                return "{\"error\": \"You don't appear to be logged in.\"}";
+            }
             try {
                 if (userName == null || firstName == null || lastName == null) {
                     throw new Exception("One or more form data parameters are missing in the HTTP request.");
@@ -114,7 +118,11 @@ public class userInfo {
         @Produces(MediaType.APPLICATION_JSON)
         public String deleteThing(@FormDataParam("userName") String userName,
                                   @FormDataParam("firstName") String firstName,
-                                  @FormDataParam("lastName") String lastName){
+                                  @FormDataParam("lastName") String lastName, @CookieParam("token") String Token) {
+
+            if (!User.validToken(Token)) {
+                return "{\"error\": \"You don't appear to be logged in.\"}";
+            }
             try{
                 if (userName == null || firstName == null || lastName == null){
                     throw new Exception("One or more form data parameters are missing in the HTTP request.");

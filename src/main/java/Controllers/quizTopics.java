@@ -27,8 +27,8 @@ public class quizTopics {
         JSONObject item = new JSONObject();
         //Creates JSONArray to be used as response from the git bash test results
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT Topic FROM quizTopics WHERE id = ?");
-            ps.setInt(1, id);
+            PreparedStatement ps = Main.db.prepareStatement("SELECT Topic FROM quizTopics WHERE topicID = ?");
+            ps.setInt(1,  id);
             ResultSet results = ps.executeQuery();
             if (results.next()) {
                 item.put("loginID", id);
