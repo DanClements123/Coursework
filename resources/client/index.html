@@ -13,12 +13,17 @@
     <div id="testDiv"></div>
     <div id="loggedInDetails"></div>
 </div>
+<div class="topnav">
+    <a class="active" href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+    <a href="#about">About</a>
+</div>
 </body>
-
-<p STYLE="border-style: solid; height:100px;" ><body onload="logos()"></body></p>
+<body onLoad="logos()"></body>
+<p STYLE="border-style: solid; height:100px;" ></p>
 <h1 style="font-family:'New Times Roman',serif;font-size:50px; color:Black" align=center>QuizHub</h1>
 <h2 style="font-family:'New Times Roman',serif;font-size:32px; color:Black" align=center>Welcome to a new quiz revision site!</h2>
-
 <form method="get" action="/page2">
     <section id="buttonPosition"><input type="button" style="height:50px; width:100px" onclick="location.href='http://localhost:8081/client/playQuiz.html';" value="Play a Quiz" /></section>
     <section id="buttonPosition1"><input type="button" style="height:50px; width:100px" onclick="location.href='http://localhost:8081/client/yourQuizzes.html';" value="Your Quizzes" /></section>
