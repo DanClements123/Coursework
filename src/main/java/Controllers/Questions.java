@@ -87,7 +87,7 @@ public class Questions {
             ps.setString(2, correctAnswer);
             ps.setString(3, wrongAnswer);
             ps.setString(4, wrongAnswer2);
-            ps.setString(5,wrongAnswer3);
+            ps.setString(5, wrongAnswer3);
             ps.execute();
             return "{\"status\": \"OK\"}";
 
@@ -104,25 +104,30 @@ public class Questions {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public String updateThing(@FormDataParam("question") String question, @FormDataParam("correctAnswer") String correctAnswer,
-                              @FormDataParam("wrongAnswer") String wrongAnswer, @FormDataParam("wrongAnswer2") String wrongAnswer2, @FormDataParam("wrongAnswer3") String wrongAnswer3) {
-        try {
-            if (question == null || correctAnswer == null || wrongAnswer == null) {
-                throw new Exception("One or more form data parameters are missing in the HTTP request.");
-            }
-            System.out.println("thing/update=" + question);
+                              @FormDataParam("wrongAnswer") String wrongAnswer, @FormDataParam("wrongAnswer2") String wrongAnswer2, @FormDataParam("wrongAnswer3") String wrongAnswer3, @CookieParam("token") String token) {
 
-            PreparedStatement ps = Main.db.prepareStatement("UPDATE Questions SET question = ?, correctAnswer = ?, wrongAnswer = ?, wrongAnswer2 = ?, wrongAnswer3 = ? WHERE questionID = ?");
-            ps.setString(2, question);
-            ps.setString(3, correctAnswer);
-            ps.setString(4, wrongAnswer);
-            ps.setString(5, wrongAnswer2);
-            ps.setString(6, wrongAnswer3);
-            return "{\"error\": \"Unable to update item, please see server console for more information.\"}";
-        } catch (Exception exception){
-            System.out.println("Database error: " + exception.getMessage());
-            return "{\"error\": \"Unable to update item, please see server console for more information.\"}";
+        if (!User.validToken(token)) {
+            return "{\"error\": \"You don't appear to be logged in.\"}";
         }
-    }
+
+            try {
+                if (question == null || correctAnswer == null || wrongAnswer == null) {
+                    throw new Exception("One or more form data parameters are missing in the HTTP request.");
+                }
+                System.out.println("thing/update=" + question);
+
+                PreparedStatement ps = Main.db.prepareStatement("UPDATE Questions SET question = ?, correctAnswer = ?, wrongAnswer = ?, wrongAnswer2 = ?, wrongAnswer3 = ? WHERE questionID = ?");
+                ps.setString(2, question);
+                ps.setString(3, correctAnswer);
+                ps.setString(4, wrongAnswer);
+                ps.setString(5, wrongAnswer2);
+                ps.setString(6, wrongAnswer3);
+                return "{\"error\": \"Unable to update item, please see server console for more information.\"}";
+            } catch (Exception exception) {
+                System.out.println("Database error: " + exception.getMessage());
+                return "{\"error\": \"Unable to update item, please see server console for more information.\"}";
+            }
+        }
 
     //delete from database
 
@@ -132,24 +137,29 @@ public class Questions {
     @Produces(MediaType.APPLICATION_JSON)
     public String deleteThing(@FormDataParam("question") String question, @FormDataParam("correctAnswer") String correctAnswer,
                               @FormDataParam("wrongAnswer") String wrongAnswer, @FormDataParam("wrongAnswer2") String wrongAnswer2,
-                              @FormDataParam("wrongAnswer3") String wrongAnswer3){
-        try{
-            if (question == null || correctAnswer == null || wrongAnswer == null){
-                throw new Exception("One or more form data parameters are missing in the HTTP request.");
+                              @FormDataParam("wrongAnswer3") String wrongAnswer3, @CookieParam("token") String token) {
+
+        if (!User.validToken(token)) {
+            return "{\"error\": \"You don't appear to be logged in.\"}";
+        }
+            try {
+                if (question == null || correctAnswer == null || wrongAnswer == null) {
+                    throw new Exception("One or more form data parameters are missing in the HTTP request.");
+                }
+                System.out.println("thing/delete question=" + question);
+                PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Questions WHERE question = ?");
+                ps.setString(1, question);
+                ps.execute();
+                return "{\"status\": \"OK\"}";
+            } catch (Exception exception) {
+                System.out.println("Database error: " + exception.getMessage());
+                return "{\"error\": \"Unable to delete item, please see server console for more information.\"}";
             }
-            System.out.println("thing/delete question=" + question);
-            PreparedStatement ps = Main.db.prepareStatement("DELETE FROM Questions WHERE question = ?");
-            ps.setString(1, question);
-            ps.execute();
-            return "{\"status\": \"OK\"}";
-        } catch (Exception exception) {
-            System.out.println("Database error: " + exception.getMessage());
-            return "{\"error\": \"Unable to delete item, please see server console for more information.\"}";
+
         }
 
     }
 
-}
 
 
 
