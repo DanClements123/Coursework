@@ -19,7 +19,7 @@ public class Questions {
         System.out.println("thing/list");
         JSONArray list = new JSONArray();
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT questionID, question, correctAnswer, wrongAnswer, wrongAnswer2, wrongAnswer3, topicID from Questions");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT questionID, question, correctAnswer, wrongAnswer, wrongAnswer2, wrongAnswer3, topicID, quizName from Questions");
             ResultSet results = ps.executeQuery();
             while (results.next()) {
                 JSONObject item = new JSONObject();
@@ -30,6 +30,7 @@ public class Questions {
                 item.put("wrongAnswer2", results.getString(5));
                 item.put("wrongAnswer3", results.getString(6));
                 item.put("topicID", results.getInt(7));
+                item.put("quizName", results.getString(8));
                 list.add(item);
             }
             return list.toString();
@@ -38,6 +39,28 @@ public class Questions {
             return "{\"error\": \"Unable to list items, please see server console for more info.\"}";
         }
     }
+
+    @GET
+    @Path("/quizName")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String quizName() {
+        System.out.println("quizName/list");
+        JSONArray list = new JSONArray();
+        try {
+            PreparedStatement ps = Main.db.prepareStatement("SELECT quizName from Questions");
+            ResultSet results = ps.executeQuery();
+            while (results.next()) {
+                JSONObject item = new JSONObject();
+                item.put("quizName", results.getString(8));
+                list.add(item);
+            }
+            return list.toString();
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"error\": \"Unable to list items, please see server console for more info.\"}";
+        }
+    }
+
 
 
     @GET
