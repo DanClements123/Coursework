@@ -47,13 +47,15 @@ public class Questions {
         System.out.println("quizName/list");
         JSONArray list = new JSONArray();
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT quizName from Questions");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT quizName, buttonSelection from Questions");
             ResultSet results = ps.executeQuery();
             while (results.next()) {
                 JSONObject item = new JSONObject();
-                item.put("quizName", results.getString(8));
+                item.put("quizName", results.getString(1));
+                item.put("buttonSelection", results.getInt(2));
                 list.add(item);
             }
+            System.out.println(list.toString());
             return list.toString();
         } catch (Exception exception) {
             System.out.println("Database error: " + exception.getMessage());

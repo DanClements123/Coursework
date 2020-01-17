@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <title>Play a Quiz!</title>
     <link rel="stylesheet" type="text/css" href="/client/css/styles.css">
-    <script src="/client/js/index.js"></script>
+    <script src="/client/js/playQuiz.js"></script>
     <link rel="shortcut icon" href="/client/favicon.ico" type="image/x-icon">
 </head>
-<body onload="pageLoad()">
-<div id="content">
-    <div id="testDiv"></div>
-</div>
+
 </body>
 <div class="topnav">
     <a class="active" href="http://localhost:8081/client/index.html">Home</a>
@@ -20,12 +17,22 @@
 </div>
 <h1></h1>
 <h1 style="font-family:'New Times Roman',serif; font-size:50px; color:Black" align="center";>Play a Quiz!</h1>
-<h2 style="font-family:'New Times Roman',serif; font-size:20px; color:Black" align="Left";>Please select the quizzes below picked from a random selection:</h2>
+<h2 style="font-family:'New Times Roman',serif; font-size:20px; color:Black" align="left";>Please select the quizzes below picked from a random selection:</h2>
+
+<body onload="pageLoad()">
+<form id="quizSelection">
+    <div id="content">
+        <label id="listDiv"></label>
+        <input type="button" style="height:20px; width:100px" onclick="location.href='https://www.google.co.uk/';" value="Play a Quiz" />
+    </div>
+</form>
+</body>
+
+
+
 
 
 
 <secton id="bottomColour"></secton>
-
-
-
 </html>
+

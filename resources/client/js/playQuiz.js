@@ -1,23 +1,28 @@
+
+
 function loadQuiz() {
-    let Questions = '<table>' +
+    let QuestionsHTML = '<table>' +
         '<tr>' +
-        '<th>name</th>' +
         '</tr>'
     fetch('/Questions/quizName', {method: 'get'}
     ).then(response => response.json()
-    ).then(quizName => {
+    ).then(Questions => {
 
         for (let quizName of Questions) {
-            Questions += `<tr>` +
-          `<td>${Questions.quizName}</td>` +
-          `<td>${Questions.questionID}</td>` +
+            QuestionsHTML += `<tr>` +
+          `<td>${quizName.quizName}</td>` +
+                `<td>${quizName.buttonSelection}</td>` +
                 `</td>` +
                 `</tr>`;
         }
-        Questions += '</table>'
+        QuestionsHTML += '</table>';
 
-        document.getElementById("listDiv").innerHTML = Questions;
+        document.getElementById("listDiv").innerHTML = QuestionsHTML;
 
     })
 
 }//end of function
+
+function pageLoad(){
+    loadQuiz();
+}
