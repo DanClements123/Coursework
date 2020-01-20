@@ -43,16 +43,24 @@ public class Questions {
     @GET
     @Path("/quizName")
     @Produces(MediaType.APPLICATION_JSON)
-    public String quizName() {
+    public String quizName(@CookieParam("token") String token) {
         System.out.println("quizName/list");
+        String un = "";
+
         JSONArray list = new JSONArray();
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT quizName, buttonSelection from Questions");
+            PreparedStatement user = Main.db.prepareStatement("SELECT userName from loginData WHERE Token=?");
+            user.setString(1,token);
+            ResultSet users = user.executeQuery();
+
+            PreparedStatement ps = Main.db.prepareStatement("SELECT quizName, buttonSelection, userName from Questions WHERE userName=?");
+            ps.setString(1,users.getString("userName"));
             ResultSet results = ps.executeQuery();
             while (results.next()) {
                 JSONObject item = new JSONObject();
                 item.put("quizName", results.getString(1));
                 item.put("buttonSelection", results.getInt(2));
+                item.put("userName", results.getString(3));
                 list.add(item);
             }
             System.out.println(list.toString());

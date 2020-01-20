@@ -2,31 +2,33 @@
 function loadQuiz() {
     let QuestionsHTML = '<table>' +
         '<tr>' +
-        `<td>test</td>` +
-        '</tr>'
+        '</tr>';
     fetch('/Questions/quizName', {method: 'get'}
     ).then(response => response.json()
     ).then(Questions => {
 
         for (let quizName of Questions) {
-            QuestionsHTML += `<tr>` +
-          `<td>${quizName.quizName}</td>` +
-                `<td>${quizName.buttonSelection}</td>` +
-                `</td>` +
-                `</tr>`;
-        }
-        QuestionsHTML += '</table>';
-        let i = 0
-        while(i <= 10){
-            Math.floor((Math.random() * 10) + 1);
-            i++;
-        }
-        if(i == buttonSelection){
+            let i = 0;
+            let random = 0
+            while (i <= 10) {
+                random = Math.floor((Math.random() * Questions.size) + 1)
+                i++;
+            }
+                QuestionsHTML += `<tr>` +
+                    `<td>${quizName.quizName}</td>` +
+                    `<td>${quizName.buttonSelection}</td>` +
+                    `<td>${quizName.userName}</td>` +
+                    `<button class='playButton' data-id='${questionID.id}'>Play Quiz</button>` +
+                    `</td>` +
+                    `</tr>`;
+            }
 
-        }
-
-        document.getElementById("listDiv").innerHTML = QuestionsHTML;
-
+            QuestionsHTML += '</table>';
+            document.getElementById("listDiv").innerHTML = QuestionsHTML;
+            let editButtons = document.getElementsByClassName("playButton");
+            for (let button of editButtons) {
+            button.addEventListener("click", playButton);
+            }
     })
 
 }//end of function
