@@ -1,8 +1,8 @@
 
-
 function loadQuiz() {
     let QuestionsHTML = '<table>' +
         '<tr>' +
+        `<td>test</td>` +
         '</tr>'
     fetch('/Questions/quizName', {method: 'get'}
     ).then(response => response.json()
@@ -16,6 +16,14 @@ function loadQuiz() {
                 `</tr>`;
         }
         QuestionsHTML += '</table>';
+        let i = 0
+        while(i <= 10){
+            Math.floor((Math.random() * 10) + 1);
+            i++;
+        }
+        if(i == buttonSelection){
+
+        }
 
         document.getElementById("listDiv").innerHTML = QuestionsHTML;
 
@@ -25,4 +33,4 @@ function loadQuiz() {
 
 function pageLoad(){
     loadQuiz();
-}
+}//end of function
