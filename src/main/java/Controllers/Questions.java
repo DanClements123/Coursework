@@ -45,8 +45,6 @@ public class Questions {
     @Produces(MediaType.APPLICATION_JSON)
     public String quizName(@CookieParam("token") String token) {
         System.out.println("quizName/list");
-        String un = "";
-
         JSONArray list = new JSONArray();
         try {
             PreparedStatement user = Main.db.prepareStatement("SELECT userName from loginData WHERE Token=?");
