@@ -142,4 +142,37 @@ loginDiv {
     border-radius: 8px
 }
 
+#answerPosition {
+    height: 50px;
+    width: 50px;
+    background-color: aqua;
+    display:inline-block;
+    margin-left:35%;
 
+}
+
+#answerPosition2 {
+    height: 50px;
+    width: 50px;
+    background-color: aqua;
+    display:inline-block;
+    margin-left:20%;
+}
+
+#answerPosition3 {
+    height: 50px;
+    width: 50px;
+    background-color: aqua;
+    display:inline-block;
+    margin-left:35%;
+    margin-top:10%
+
+}
+
+#answerPosition4 {
+    height: 50px;
+    width: 50px;
+    background-color: aqua;
+    display:inline-block;
+    margin-left:20%;
+}
