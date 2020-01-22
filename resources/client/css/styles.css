@@ -148,6 +148,7 @@ loginDiv {
     background-color: aqua;
     display:inline-block;
     margin-left:35%;
+    margin-top:2%;
 
 }
 
@@ -157,6 +158,7 @@ loginDiv {
     background-color: aqua;
     display:inline-block;
     margin-left:20%;
+
 }
 
 #answerPosition3 {
