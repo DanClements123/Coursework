@@ -16,8 +16,7 @@ function loadQuiz() {
             }
             QuestionsHTML += `<tr>` +
                 `<td>${question.quizName}</td>` +
-                `<button class="playButton" data-id='${question.id}'>Play Quiz</button>` +
-                `</td>` +
+                `<td><button class="playButton" data-id='${question.id}'>Play Quiz</button><td>` +
                 `</tr>`;
         }
 

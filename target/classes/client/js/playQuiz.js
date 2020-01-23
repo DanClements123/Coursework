@@ -8,7 +8,6 @@ function loadQuiz() {
     ).then(response => response.json()
     ).then(Questions => {
             for (let question of Questions) {
-            console.log(question.quizName);
             let i = 0;
             let random = 0;
             while (i <= 10) {
@@ -17,8 +16,7 @@ function loadQuiz() {
             }
             QuestionsHTML += `<tr>` +
                 `<td>${question.quizName}</td>` +
-                `<button class="playButton" data-id='${question.id}'>Play Quiz</button>` +
-                `</td>` +
+                `<td><button class="playButton" data-id='${question.id}'>Play Quiz</button><td>` +
                 `</tr>`;
         }
 
