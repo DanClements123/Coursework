@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@Path("Questions/")
+@Path("Questions")
 public class Questions {
 
     @GET
@@ -33,6 +33,7 @@ public class Questions {
                 item.put("quizName", results.getString(8));
                 list.add(item);
             }
+            System.out.println(list.toString());
             return list.toString();
         } catch (Exception exception) {
             System.out.println("Database error: " + exception.getMessage());
@@ -41,7 +42,7 @@ public class Questions {
     }
 
     @GET
-    @Path("/quizName")
+    @Path("quizName")
     @Produces(MediaType.APPLICATION_JSON)
     public String quizName(@CookieParam("token") String token) {
         System.out.println("quizName/list");
@@ -50,7 +51,6 @@ public class Questions {
             PreparedStatement user = Main.db.prepareStatement("SELECT userName from loginData WHERE Token=?");
             user.setString(1,token);
             ResultSet users = user.executeQuery();
-
             PreparedStatement ps = Main.db.prepareStatement("SELECT quizName, buttonSelection, userName from Questions WHERE userName=?");
             ps.setString(1,users.getString("userName"));
             ResultSet results = ps.executeQuery();
@@ -61,7 +61,6 @@ public class Questions {
                 item.put("userName", results.getString(3));
                 list.add(item);
             }
-            System.out.println(list.toString());
             return list.toString();
         } catch (Exception exception) {
             System.out.println("Database error: " + exception.getMessage());
