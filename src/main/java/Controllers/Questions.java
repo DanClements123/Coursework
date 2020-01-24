@@ -19,7 +19,7 @@ public class Questions {
         System.out.println("thing/list");
         JSONArray list = new JSONArray();
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT questionID, question, correctAnswer, wrongAnswer, wrongAnswer2, wrongAnswer3, topicID, quizName from Questions");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT questionID, question, correctAnswer, wrongAnswer, wrongAnswer2, wrongAnswer3, topicID, quizName, answeredQuestion from Questions");
             ResultSet results = ps.executeQuery();
             while (results.next()) {
                 JSONObject item = new JSONObject();
@@ -31,6 +31,7 @@ public class Questions {
                 item.put("wrongAnswer3", results.getString(6));
                 item.put("topicID", results.getInt(7));
                 item.put("quizName", results.getString(8));
+                item.put("answeredQuestion", results.getBoolean(9));
                 list.add(item);
             }
             System.out.println(list.toString());

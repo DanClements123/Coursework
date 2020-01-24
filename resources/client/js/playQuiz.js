@@ -34,3 +34,8 @@ function pageLoad(){
     loadQuiz();
 
 }//end of function
+
+function playButton(){
+    window.location.href = "http://localhost:8081/client/loadQuiz.html";
+
+}//end of function
