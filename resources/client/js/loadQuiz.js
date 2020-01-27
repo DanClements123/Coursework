@@ -1,7 +1,4 @@
-function pageLoad(){
-    loadQuiz();
-    questionName();
-}
+
 /*
 function loadQuiz() {
     let QuestionsHTML = `<table>` +
@@ -38,7 +35,8 @@ function questionName(){
      let QuestionsNameHTML = `<table>` +
          `<tr>` +
          `</tr>`;
-     fetch('/Questions/list', {method: 'get'}
+
+     fetch('/Questions/question', {method: 'get'}
      ).then(response => response.json()
      ).then(Questions => {
          for (let question of Questions) {
@@ -50,4 +48,8 @@ function questionName(){
          document.getElementById("listName").innerHTML = QuestionsNameHTML;
      })
 
+}//end of function
+
+function pageLoad(){
+    questionName();
 }//end of function

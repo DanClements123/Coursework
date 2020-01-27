@@ -2,14 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Play a Quiz!</title>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <script src="js/loadQuiz.js"></script>
+    <title>Playing quiz</title>
+    <link rel="stylesheet" type="text/css" href="/client/css/styles.css">
+    <script src="/client/js/loadQuiz.js"></script>
     <link rel="shortcut icon" href="/client/favicon.ico" type="image/x-icon">
 </head>
-<body onload="pageLoad()">
-    <div id="content"></div>
-     <div id="listName"></div>
+<body>
 <div class="topnav">
     <a class="active" href="http://localhost:8081/client/index.html">Home</a>
 </div>
@@ -17,7 +15,10 @@
 <h2 style="font-family:'New Times Roman',serif;font-size:32px; color:Black" align=center><div id="listDiv"></div></h2>
     <secton id="bottomColour"></secton>
     <section id="button"></section>
-
+<body onload="pageLoad()">
+<div id="content"></div>
+<div id="listName"></div>
+</body>
 <form>
     <section id="answerPosition"><input type="button" style="height:50px; width:100px" onclick="location.href='http://localhost:8081/client/playQuiz.html';" value="Answer 1" /></section>
     <section id="answerPosition2"><input type="button" style="height:50px; width:100px" onclick="location.href='http://localhost:8081/client/login.html';" value="Answer 2" /></section>

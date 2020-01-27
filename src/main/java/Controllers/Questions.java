@@ -13,6 +13,29 @@ import java.sql.ResultSet;
 public class Questions {
 
     @GET
+    @Path("question")
+    @Produces(MediaType.APPLICATION_JSON)
+
+    public String listName() {
+        System.out.println("thing/list");
+        JSONArray list = new JSONArray();
+        try {
+            PreparedStatement ps = Main.db.prepareStatement("SELECT question from Questions");
+            ResultSet results = ps.executeQuery();
+            while (results.next()) {
+                JSONObject item = new JSONObject();
+                item.put("question", results.getString(1));
+                list.add(item);
+            }
+            System.out.println(list.toString());
+            return list.toString();
+        } catch (Exception exception) {
+            System.out.println("Database error: " + exception.getMessage());
+            return "{\"error\": \"Unable to list items, please see server console for more info.\"}";
+        }
+    }
+
+    @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
     public String listThings() {
